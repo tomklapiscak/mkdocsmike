@@ -1,10 +1,8 @@
 name: Build Documentation
 on:
   push:
-    branches:
-      - '**'
-    tags-ignore:
-      - '**'
+    tags: [ '*.*.*' ]
+
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
@@ -22,9 +20,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Get branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: get_branch_name
+
       - name: Deploy with mike 🚀
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch origin gh-pages --depth=1
-          mike deploy --push --update-aliases main latest
+          mike deploy --push --update-aliases ${{ steps.get_branch_name.outputs.branch }} latest
