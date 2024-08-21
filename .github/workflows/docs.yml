@@ -27,4 +27,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch origin gh-pages --depth=1
-          mike deploy --push --update-aliases 0.5 latest
+          mike deploy --push main
