@@ -12,13 +12,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.1
 
-      - name: Install and Build
+      - name: Install Python dependencies
         run: |
-          bash build/bin/build-docs.sh
+          python -m pip install -q mkdocs
+          python -m pip install -q mkdocs-redirects
+          python -m pip install -q mkdocs-macros-plugin
+          python -m pip install -q mkdocs-drawio-file
+          python -m pip install -q mike
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.7
-        if: github.ref == 'refs/heads/main'
-        with:
-          branch: gh-pages
-          folder: site
+      - name: Configure Git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Deploy with mike 🚀
+        run: |
+          cd mkdocs
+          mike deploy --push --update-aliases 0.4 latest
