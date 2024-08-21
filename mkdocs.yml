@@ -46,7 +46,3 @@ markdown_extensions:
   - admonition
   - attr_list
   - markdown.extensions.footnotes
-
-extra:
-  version:
-    provider: mike
