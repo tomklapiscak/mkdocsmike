@@ -27,5 +27,4 @@ jobs:
 
       - name: Deploy with mike 🚀
         run: |
-          cd mkdocs
           mike deploy --push --update-aliases 0.4 latest
