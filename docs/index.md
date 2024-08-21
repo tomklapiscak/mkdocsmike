@@ -1,20 +1,7 @@
-# Welcome to MkDocs
+IBM Maximo Application Suite - GitOps
+===============================================================================
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+A GitOps approach to managing Maximo Application Suite.
 
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-
-
-version 0.6
+!!! note
+      This documentation is not yet ready to provide an exhaustive and comprehensive guide to using MAS GitOps for your own deployments. Instead, it is intended to promote understanding of the concepts involved and the approach we have taken. If you would like to deploy MAS via GitOps, please refer to the [ibm-mas/gitops-demo](https://github.com/ibm-mas/gitops-demo/tree/002) for a step-by-step guide using the MAS CLI.
