@@ -25,7 +25,7 @@ jobs:
 
       - name: Get branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF} | sed -e "s/refs\\/\(tags\|heads\)\\///g")"
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF} | sed -rn "s/refs\/(tags\/([0-9]+\.[0-9]+).*|heads\/(.*))/\2\3/p")"
         id: get_branch_name
 
       - name: Deploy with mike 🚀
@@ -33,4 +33,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch origin gh-pages --depth=1
+          echo "Pushing docs for version ${{ steps.get_branch_name.outputs.branch }}"
           mike deploy --push ${{ steps.get_branch_name.outputs.branch }}
