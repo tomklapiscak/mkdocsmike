@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-
       - name: Install Python dependencies
         run: |
           python -m pip install -q mkdocs
@@ -23,6 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # GITHUB_REF is one of the following: "refs/heads/main", "refs/heads/dev", "refs/tags/x.x.x"
+      # We use this to determine the version of documentation that we want to publish; one of: "main", "dev" or "x.x"
+      # Note: the latter is deliberately "x.x" (not "x.x.x") so we group docs by minor release; each version of the docs will correspond to the latest patch release for that minor version.
+      # The command uses sed/regex to pull out "main", "dev" or "x.x" and assign it to the "branch" output of this step, accessible in later steps via ${{ steps.get_branch_name.outputs.branch }}"
       - name: Get branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF} | sed -rn "s/refs\/(tags\/([0-9]+\.[0-9]+).*|heads\/(.*))/\2\3/p")"
